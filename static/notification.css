@@ -1,5 +1,5 @@
-#notifiction {
-    postion:fixed;
+#notification {
+    position:fixed;
     right: 20%;
     top:80px;
 }
@@ -10,4 +10,5 @@
     box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.19);
     padding: 16px 32px;
     border-radius: 8px;
+    margin-bottom: 16px;
 }
