@@ -12,7 +12,7 @@ label {
 }
 
 input[type="text"], input[type="password"], .ml textarea {
-    position: absolute;
+    position: relative;
     right: 0px;
     width: 500px;
     padding: 8px;
@@ -28,7 +28,7 @@ input[type="text"], input[type="password"], .ml textarea {
 }
 
 input[type="submit"] {
-    display: block;
+    display: relative;
     border: none;
     margin: auto;
     background-color: salmon;
