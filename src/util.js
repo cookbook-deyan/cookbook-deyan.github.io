@@ -17,9 +17,26 @@ export function createSubmitHandler(callback ,...fieldNames) {
     return function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
+         
        
         const data= fieldNames.reduce((a,c)=>Object.assign(a,{[c]: formData.get(c)}),{});
+        console.log(data);
       
         callback(data,event)
+    }
+}
+
+export function parseQuery(querystring) {
+    if (querystring =='') {
+        return {}
+    } else {
+
+
+        
+        return querystring.split('&').reduce((a,c)=>{
+            const [k,v]=c.split('=');
+            a[k]=v;
+            return a
+        },{})
     }
 }

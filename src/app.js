@@ -9,14 +9,17 @@ import { homePage } from './views/home.js';
 import { loginPage } from './views/login.js';
  
 import notify from './middlewares/notify.js'
+import { registerPage } from './views/register.js';
+import { catalogPage } from './views/catalog.js';
 
 
 page(addSession() )
 page(decorateContext());
 page(notify())
 page('/',homePage);
-page('/login',loginPage)
-
+page('/login',loginPage);
+page('/register',registerPage)
+page('/catalog', catalogPage)
 page.start();
  
  

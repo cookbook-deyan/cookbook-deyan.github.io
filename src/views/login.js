@@ -59,10 +59,10 @@ export function loginPage(ctx) {
                 throw {
 
                     message: 'Pls fill all fields!',
-                    errors: {
-                        name: true,
+                   
+                        username: true,
                         password: true
-                    }
+                   
                 }
             }
             await login(username, password);
@@ -73,7 +73,7 @@ export function loginPage(ctx) {
 
             ctx.page.redirect('/catalog')
         } catch (error) {
-            console.log(error);
+          console.log(username,password);
             update(error, {username,password})
         }
 

@@ -4,7 +4,8 @@ import {getUserData} from '../util.js';
 import {del} from '../api/api.js'
 
 export const endpoints= {
-    recipes:'/classes/recipe',
+    recent:'classes/recipe?limit=3',
+    recipes:(qyery)=>`/classes/recipe`, //?where=${createQuery(query)}
     recipeById:'/classes/recipe/',
     recepeDetails:(id)=>`/classes/recipe/${id}?include=owner`,
     commentsByRecipe:(recipeId)=>`/classes/comment?where=${createPointerQuery('recipe','recipe',recipeId)}&include=owner`,

@@ -1,17 +1,78 @@
+import { getRecipeById ,getRecipes} from '../api/recipe.js';
+import {html, until} from '../lib.js';
+import { createSubmitHandler, parseQuery } from '../util.js';
+import { spinner } from './common.js';
 
 
 
-const catalogTemplate = (recipes, goTo, page, pages) => html`
+ const  catalogTemplate = (recipePromise,onSearch,page=1,  search='') =>{
+    
+   return html`
 <section id="catalog">
-    <header class="section-title">${pager(goTo, page, pages)}</header>
-    ${recipes.map(r => recipePreview(r, goTo))}
-    <footer class="section-title">${pager(goTo, page, pages)}</footer>
-</section>`;
-
-const recipePreview = (recipe, goTo) => html`
-<article class="preview" @click=${()=> goTo('details', recipe._id)}>
-    <div class="title">
-        <h2>${recipe.name}</h2>
+    <div class="section-title">
+        <form @submit=${onSearch} id="searchForm">
+            <input type="text" name="search" .value=${search}>
+            <input type="submit" value="Search">
+        </form>
     </div>
-    <div class="small"><img src=${recipe.img}></div>
-</article>`;
+    <header class="section-title">
+        Page 2 of 3
+        <a class="pager" href="/catalog/1">&lt; Prev</a>
+        <a class="pager" href="/catalog/3">Next &gt;</a>
+
+    </header>
+    ${until(recipePromise, spinner())}
+    
+    <footer class="section-title">
+    Page 2 of 3
+        <a class="pager" href="/catalog/1">&lt; Prev</a>
+        <a class="pager" href="/catalog/3">Next &gt;</a>
+
+    </footer>
+</section>`};
+
+
+
+
+const recipePreview = (recipe)=>html`
+<a class="card" href="/details/${recipe.objectId}">
+    <article class="preview">
+        <div class="title">
+            <h2>${recipe.name}</h2>
+        </div>
+        <div class="small" ><img src=${recipe.img} ></div>
+    </article>
+</a>
+`;
+
+
+export function catalogPage(ctx) {
+    const {page,search} = parseQuery(ctx.querystring);
+ 
+
+    ctx.render(catalogTemplate(loadRecipes(page,search),createSubmitHandler(onSearch,'search'),page,search))
+
+    function onSearch({search}) {
+        if (search) {
+            ctx.page.redirect(`/catalog?search=${encodeURIComponent(search)}`)
+            
+        } else{
+            ctx.page.redirect('/catalog')
+        }
+    }
+}
+
+async function loadRecipes() {
+   
+// return []
+
+    let {results:recipes} =  await getRecipes();
+  console.log(recipes);
+    if (recipes.length==0) {
+        return html`<p>No recipes found</p>`
+    }else{
+       
+        return recipes.map(recipePreview)
+    }
+     
+}

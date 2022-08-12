@@ -17,10 +17,10 @@ export const field = ({
 }) => {
 
     if (type == 'textarea') {
-        return html `<label>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap(error)} value=${value}  ></textarea></label>`
+        return html `<label>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap({err:error})} value=${value}  ></textarea></label>`
     } else {
 
-        return html `<label>${label}: <input class=${classMap({error})} type=${type} name=${name} .value=${value}></label>`
+        return html `<label>${label}: <input class=${classMap({err:error})} type=${type} name=${name} .value=${value}></label>`
 
     }
 

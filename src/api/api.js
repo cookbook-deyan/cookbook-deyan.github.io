@@ -16,7 +16,10 @@ async function request(url, options) {
             // handle error
             const error = await response.json();
             console.log(error);
-            throw new Error(error.message||error.error)
+            throw{
+                message:error.error,
+                code: error.code
+            }
         }
 
         return await response.json();

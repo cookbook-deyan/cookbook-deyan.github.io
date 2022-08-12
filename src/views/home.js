@@ -1,4 +1,4 @@
-import { getRecipeById ,getRecipes} from '../api/recipe.js';
+import { getRecentRecipes} from '../api/recipe.js';
 import {html, until} from '../lib.js';
 import { spinner } from './common.js';
 
@@ -38,7 +38,7 @@ export function homePage(ctx) {
 
 async function loadRecipes() {
    
-    let {results:recipes} =  await getRecipes();
+    let {results:recipes} =  await getRecentRecipes();
      
     if (recipes.length==0) {
         return html`<p>No recipes found</p>`
