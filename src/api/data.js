@@ -4,7 +4,7 @@ import {getUserData} from '../util.js';
 import {del} from '../api/api.js'
 
 export const endpoints= {
-    recent:'classes/recipe?limit=3',
+    recent:'/classes/recipe?limit=3',
     recipes:(qyery)=>`/classes/recipe`, //?where=${createQuery(query)}
     recipeById:'/classes/recipe/',
     recepeDetails:(id)=>`/classes/recipe/${id}?include=owner`,

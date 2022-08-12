@@ -24,7 +24,7 @@ export async function getRecipes(page,query) {
     }
 
     
-    return api.get(endpoints.recipes())
+    return api.get(endpoints.recent)
 }
 
 export async function getRecipeById(id) {
