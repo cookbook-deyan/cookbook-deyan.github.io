@@ -3,9 +3,13 @@
 import {getUserData} from '../util.js';
 import {del} from '../api/api.js'
 
+const pageSize=5
+
 export const endpoints= {
     recent:'/classes/recipe?limit=3',
-    recipes:(qyery)=>`/classes/recipe`, //?where=${createQuery(query)}
+    recipes:(page)=>`/classes/recipe?skip=${(page-1)*pageSize}&limit=${pageSize}`,
+    recipeSearch:(page,query)=>`/classes/recipe?where=${createQuery(query)}&skip=${(page-1)*pageSize}&limit=${pageSize}`,
+
     recipeById:'/classes/recipe/',
     recepeDetails:(id)=>`/classes/recipe/${id}?include=owner`,
     commentsByRecipe:(recipeId)=>`/classes/comment?where=${createPointerQuery('recipe','recipe',recipeId)}&include=owner`,

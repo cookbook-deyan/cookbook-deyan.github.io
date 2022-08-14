@@ -1,7 +1,7 @@
-import { getRecipeById ,getRecipes} from '../api/recipe.js';
+import {getRecipes} from '../api/recipe.js';
 import {html, until} from '../lib.js';
 import { createSubmitHandler, parseQuery } from '../util.js';
-import { spinner } from './common.js';
+import { errorMsg, spinner } from './common.js';
 
 
 
@@ -11,6 +11,7 @@ import { spinner } from './common.js';
 <section id="catalog">
     <div class="section-title">
         <form @submit=${onSearch} id="searchForm">
+    
             <input type="text" name="search" .value=${search}>
             <input type="submit" value="Search">
         </form>
@@ -48,7 +49,8 @@ const recipePreview = (recipe)=>html`
 
 export function catalogPage(ctx) {
     const {page,search} = parseQuery(ctx.querystring);
- 
+    // console.log(typeof search,search.length,`"${search}"`);
+    console.log( ctx.querystring);
 
     ctx.render(catalogTemplate(loadRecipes(page,search),createSubmitHandler(onSearch,'search'),page,search))
 
@@ -62,12 +64,11 @@ export function catalogPage(ctx) {
     }
 }
 
-async function loadRecipes() {
-   
-// return []
+async function loadRecipes(page=1,search='') {
 
-    let {results:recipes} =  await getRecipes();
-  console.log(recipes);
+
+    let {results:recipes} =  await getRecipes(page,search);
+  
     if (recipes.length==0) {
         return html`<p>No recipes found</p>`
     }else{

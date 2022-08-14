@@ -11,6 +11,7 @@ import { loginPage } from './views/login.js';
 import notify from './middlewares/notify.js'
 import { registerPage } from './views/register.js';
 import { catalogPage } from './views/catalog.js';
+import { createPage } from './views/create.js';
 
 
 page(addSession() )
@@ -19,7 +20,8 @@ page(notify())
 page('/',homePage);
 page('/login',loginPage);
 page('/register',registerPage)
-page('/catalog', catalogPage)
+page('/catalog', catalogPage);
+page('/create', createPage)
 page.start();
  
  

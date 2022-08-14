@@ -9,6 +9,7 @@ import {
     createSubmitHandler
 } from '../util.js';
 import {
+    errorMsg,
     field
 } from './common.js';
 
@@ -17,7 +18,8 @@ const registerTemplate = (onSubmit, errors, data) => html `
     <article>
         <h2>Register</h2>
         <form @submit=${onSubmit} id="registerForm">
-        ${errors?html`<p class="err">${errors.message}</p>`:null}
+        ${errorMsg(errors)}
+
            ${field({label:'Username',name:'username', value:data.username,error:errors.username})}
            ${field({label:'E-mail',name:'email', value:data.email,error:errors.email})}
            ${field({label:'Password',name:'password',type:"password" ,value:data.password,error:errors.password})}

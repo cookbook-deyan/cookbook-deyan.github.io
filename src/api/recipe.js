@@ -4,27 +4,29 @@ import { getUserData } from '../util.js';
 import * as api from './api.js';
 import {addOwner, endpoints} from './data.js'
 
-
-
-
 export async function getRecentRecipes() {
+    console.log(endpoints.recent);
     return api.get(endpoints.recent)
 }
 
 
 export async function getRecipes(page,query) {
     if (query) {
+        //ако има куери ще го сменим с един обект който създаваме тука
         query={
             name:{
                 $text:{
-                    $search:query
+                    $search:{$term:query},
+                    $caseSensitive:false
                 }
             }
         }
-    }
+        return api.get(endpoints.recipeSearch(page,query))
+    } else{
 
+        return api.get(endpoints.recipes(page))
+    }
     
-    return api.get(endpoints.recent)
 }
 
 export async function getRecipeById(id) {

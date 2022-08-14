@@ -20,8 +20,7 @@ export function createSubmitHandler(callback ,...fieldNames) {
          
        
         const data= fieldNames.reduce((a,c)=>Object.assign(a,{[c]: formData.get(c)}),{});
-        console.log(data);
-      
+            
         callback(data,event)
     }
 }

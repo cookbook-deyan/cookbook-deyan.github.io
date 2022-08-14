@@ -17,7 +17,7 @@ export const field = ({
 }) => {
 
     if (type == 'textarea') {
-        return html `<label>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap({err:error})} value=${value}  ></textarea></label>`
+        return html `<label class=${classMap({ml:"ml"})}>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap({err:error})} value=${value}  ></textarea></label>`
     } else {
 
         return html `<label>${label}: <input class=${classMap({err:error})} type=${type} name=${name} .value=${value}></label>`
@@ -25,3 +25,11 @@ export const field = ({
     }
 
 };
+
+export const errorMsg = (errors)=>{
+    if (errors) {
+        return html`<p class="err">${errors.message}</p>`
+    } else{
+        return null;
+    }
+}

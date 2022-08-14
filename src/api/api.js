@@ -47,7 +47,6 @@ function createOptions(method = 'get', data) {
         options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(data)
     }
-    console.log(options.headers);
 
     return options;
 
