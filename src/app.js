@@ -12,6 +12,7 @@ import notify from './middlewares/notify.js'
 import { registerPage } from './views/register.js';
 import { catalogPage } from './views/catalog.js';
 import { createPage } from './views/create.js';
+import { detailsPage } from './views/details.js';
 
 
 page(addSession() )
@@ -22,6 +23,7 @@ page('/login',loginPage);
 page('/register',registerPage)
 page('/catalog', catalogPage);
 page('/create', createPage)
+page('/details/:id' , detailsPage)
 page.start();
  
  

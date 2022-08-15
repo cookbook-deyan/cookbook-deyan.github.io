@@ -9,7 +9,7 @@ export const endpoints= {
     recent:'/classes/recipe?limit=3',
     recipes:(page)=>`/classes/recipe?skip=${(page-1)*pageSize}&limit=${pageSize}`,
     recipeSearch:(page,query)=>`/classes/recipe?where=${createQuery(query)}&skip=${(page-1)*pageSize}&limit=${pageSize}`,
-
+    createRecipe:'/classes/recipe',
     recipeById:'/classes/recipe/',
     recepeDetails:(id)=>`/classes/recipe/${id}?include=owner`,
     commentsByRecipe:(recipeId)=>`/classes/comment?where=${createPointerQuery('recipe','recipe',recipeId)}&include=owner`,

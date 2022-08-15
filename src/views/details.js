@@ -1,12 +1,14 @@
+import { getRecipeById } from '../api/recipe.js';
+import {html} from '../lib.js'
+import { until } from '../lib/directives/until.js';
+import { spinner } from './common.js';
 
-
-const detailsTemplate = (recipe, isOwner, nav, onDelete) => html`
+const detailsTemplate = (recipePromise) => html`
 <section id="details">
-    ${recipeCard(recipe, isOwner, nav.goTo, onDelete)}
-    ${showComments(recipe, nav)}
+   ${until(recipePromise,spinner())}
 </section>`;
 
-const recipeCard = (recipe, isOwner, goTo, onDelete) => html`
+const recipeCard = (recipe,isOwner) => html`
 <article>
     <h2>${recipe.name}</h2>
     <div class="band">
@@ -22,11 +24,29 @@ const recipeCard = (recipe, isOwner, goTo, onDelete) => html`
         <h3>Preparation:</h3>
         ${recipe.steps.map(s => html`<p>${s}</p>`)}
     </div>
-    ${isOwner
-        ? html`
-    <div class="controls">
-        <button @click=${() => goTo('edit', recipe._id)}>\u270E Edit</button>
-        <button @click=${onDelete}>\u2716 Delete</button>
-    </div>`
-        : ''}
+    ${
+isOwner ? html`
+        <div class="controls">
+            <a class="actionLink" href="$1">&#x270e; Edit</a>
+            <a class="actionLink" href="javascript:void(0)"> &#x2716; Delete</a>
+        </div>`:null
+    }
+   
 </article>`;
+
+
+export  function detailsPage(ctx) {
+    ctx.render(detailsTemplate(loadRecipe(ctx)))
+}
+
+async function loadRecipe(ctx) {
+    const recipe = await getRecipeById(ctx.params.id);
+    const isOwner = ctx.user && ctx.user.id ===recipe.owner.objectId;
+
+
+    return recipeCard(recipe,isOwner)
+    async function onDelete(recipe,isOwner) {
+        
+    }
+}
+

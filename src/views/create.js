@@ -2,6 +2,7 @@
 // create.js     ----------------MY COOKBOOK----------------
 
 
+import { createRecipe } from '../api/recipe.js';
 import {
     html
 } from '../lib.js';
@@ -21,10 +22,10 @@ const createTemplate = (onSubmit, errors,data) => html`
         <form @submit=${onSubmit} id="createForm">
        ${errorMsg(errors)}
         
-            ${field({label: "Name", name:'name',placeholder:'Recipe name', value:data.name})}
-            ${field({label: "Image", name:'img',placeholder:'Image URL', value:data.img})}
-            ${field({label: "Ingredients",type:'textarea', name:'ingredients',placeholder:'Enter ingredients on separate lines', value:data.ingredients})}
-            ${field({label: "Preparation",type:'textarea', name:'steps',placeholder:'Enter preparation steps on separate lines', value:data.preparation})}
+            ${field({label: "Name", name:'name',placeholder:'Recipe name', value:data.name,error:errors.name})}
+            ${field({label: "Image", name:'img',placeholder:'Image URL', value:data.img,error:errors.img})}
+            ${field({label: "Ingredients",type:'textarea', name:'ingredients',placeholder:'Enter ingredients on separate lines', value:data.ingredients,error:errors.ingredients})}
+            ${field({label: "Preparation",type:'textarea', name:'steps',placeholder:'Enter preparation steps on separate lines', value:data.preparation,error:errors.steps})}
         
             <input type="submit" value="Create Recipe">
         </form>
@@ -39,35 +40,38 @@ export function createPage(ctx) {
     update();
 
     function update(errors = {}, data = {}) {
-
-        ctx.render(createTemplate(createSubmitHandler(onSubmit, 'username', 'password'), errors, data))
+       
+        ctx.render(createTemplate(createSubmitHandler(onSubmit, 'name', 'img','ingredients','steps'), errors, data))
     }
 
-    async function onSubmit({username, password}) {
- /*
+    async function onSubmit(data,event) {
+        const missing = Object.entries(data).filter(([k, v]) => v == '')
         try {
-            if (username == '' || password == '') {
-                throw {
+            if (missing.length > 0) {
 
-                    message: 'Pls fill all fields!',
-                   
-                        username: true,
-                        password: true
-                   
-                }
+                throw missing.reduce((a, [k]) => Object.assign(a, {
+                    [k]: true
+                }), {
+                    message: 'Pls fill all fields!'
+                })
             }
-            await login(username, password);
-            console.log(ctx);
-            // event.target.reset();
-            ctx.updateSession();
-            ctx.updateUserNav();
 
-            ctx.page.redirect('/catalog')
+            const recipe = {
+                name:data.name,
+                img:data.img,
+                ingredients:data.ingredients.split('\n').filter(r=> r!=''),
+                steps:data.steps.split('\n').filter(r=>r !='')
+            }
+         
+            const result = await createRecipe(recipe);
+            event.target.reset();
+            ctx.page.redirect('/details/'+result.objectId);
+         
         } catch (error) {
-          console.log(username,password);
-            update(error, {username,password})
+         
+            update(error,data)
         }
-*/
+ 
     }
     
 }

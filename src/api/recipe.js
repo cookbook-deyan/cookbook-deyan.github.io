@@ -37,7 +37,7 @@ export async function getRecipeById(id) {
 export async function createRecipe(recipe) {
     addOwner(recipe)
 
-    return api.post(endpoints.recipes,recipe)
+    return api.post(endpoints.createRecipe,recipe)
 }
 
 export async function updateRecipe(id,recipe) {
