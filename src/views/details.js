@@ -1,11 +1,13 @@
 import { getRecipeById } from '../api/recipe.js';
 import {html} from '../lib.js'
 import { until } from '../lib/directives/until.js';
+import { commentsView } from './comments.js';
 import { spinner } from './common.js';
 
 const detailsTemplate = (recipePromise) => html`
 <section id="details">
    ${until(recipePromise,spinner())}
+   ${commentsView()}
 </section>`;
 
 const recipeCard = (recipe,isOwner) => html`
