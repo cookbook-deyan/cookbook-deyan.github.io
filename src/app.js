@@ -1,7 +1,7 @@
 
 import {page} from './lib.js';
 import * as api from './api/data.js'
-import{getUserData} from './util.js'
+ import {getCommentsByRecipeId} from './api/comment.js'
 
 import decorateContext from './middlewares/render.js';
 import addSession from './middlewares/session.js';
@@ -26,4 +26,4 @@ page('/create', createPage)
 page('/details/:id' , detailsPage)
 page.start();
  
- 
+window.getCommentsById=getCommentsByRecipeId

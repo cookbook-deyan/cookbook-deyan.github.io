@@ -7,7 +7,10 @@ import { spinner } from './common.js';
 const detailsTemplate = (recipePromise) => html`
 <section id="details">
    ${until(recipePromise,spinner())}
-   ${commentsView()}
+
+   <div id="comments-container">
+     
+   </div>
 </section>`;
 
 const recipeCard = (recipe,isOwner) => html`
@@ -39,6 +42,8 @@ isOwner ? html`
 
 export  function detailsPage(ctx) {
     ctx.render(detailsTemplate(loadRecipe(ctx)))
+    commentsView(ctx,ctx.params.id);
+    // тези две функции ще тръгнат синхронно ще тръгнат едновременно , защото няма await
 }
 
 async function loadRecipe(ctx) {
@@ -46,7 +51,8 @@ async function loadRecipe(ctx) {
     const isOwner = ctx.user && ctx.user.id ===recipe.owner.objectId;
 
 
-    return recipeCard(recipe,isOwner)
+    return recipeCard(recipe,isOwner);
+
     async function onDelete(recipe,isOwner) {
         
     }

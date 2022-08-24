@@ -12,7 +12,7 @@ export const endpoints= {
     createRecipe:'/classes/recipe',
     recipeById:'/classes/recipe/',
     recepeDetails:(id)=>`/classes/recipe/${id}?include=owner`,
-    commentsByRecipe:(recipeId)=>`/classes/comment?where=${createPointerQuery('recipe','recipe',recipeId)}&include=owner`,
+    commentsByRecipe:(recipeId)=>`/classes/comment?where=${createPointerQuery('recipe','recipe',recipeId)}&include=owner&order=-createdAt`,
     comments: '/classes/comment',
     deleteSes:'/parse/sessions/'
 
