@@ -17,7 +17,7 @@ export const field = ({
 }) => {
 
     if (type == 'textarea') {
-        return html `<label class=${classMap({ml:"ml"})}>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap({err:error})} value=${value}  ></textarea></label>`
+        return html `<label class=${classMap({ml:"ml"})}>${label}: <textarea name="${name}" placeholder=${placeholder}  class=${classMap({err:error})}   >${value}</textarea></label>`
     } else {
 
         return html `<label>${label}: <input class=${classMap({err:error})} type=${type} name=${name} .value=${value}></label>`

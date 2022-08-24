@@ -32,7 +32,7 @@ const recipeCard = (recipe,isOwner,onDelete) => html`
     ${
 isOwner ? html`
         <div class="controls">
-            <a class="actionLink" href="$1">&#x270e; Edit</a>
+            <a  class="actionLink" href="/edit/${recipe.objectId}">&#x270e; Edit</a>
             <a @click=${onDelete} class="actionLink" href="javascript:void(0)"> &#x2716; Delete</a>
         </div>`:null
     }
