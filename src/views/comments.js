@@ -31,7 +31,7 @@ const commentForm = (active,onToggle,onSubmit) => html`
 
 const commentCard=(comment)=>html`
     <li class="comment">
-        <header>${comment.owner.username}</header>
+        <header>${comment.owner.username}<span class="comment-date">${(new Date(comment.owner.createdAt).toLocaleString())}</span> </header>
         <p>${comment.content}</p>
     </li>
 `
