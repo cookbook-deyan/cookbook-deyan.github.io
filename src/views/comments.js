@@ -4,12 +4,12 @@ import {html,until,render} from '../lib.js'
 import { createSubmitHandler } from '../util.js';
 import { spinner } from './common.js';
 
-const commentsTemplate = (commentsPromise,active,onToggle,onSubmit) => html`
+const commentsTemplate = (commentsPromise,hasUser,active,onToggle,onSubmit) => html`
 <div class="section-title">
-    Comments for 
+    Comments:
 </div>
 
-${commentForm(active,onToggle,onSubmit)}
+${hasUser ? commentForm(active,onToggle,onSubmit) : null}
 
 <div class="comments">
    <ul>
@@ -39,13 +39,13 @@ const commentCard=(comment)=>html`
 
 export function commentsView(ctx, recipeId) {
     const parent = document.getElementById('comments-container');
-    console.log(recipeId);
+    
     const commentsPromise=getCommentsByRecipeId(recipeId)
         console.log(commentsPromise);
     update();
 
     function update(active=false) {
-        render(commentsTemplate(loadComments(commentsPromise),active,onToggle,createSubmitHandler(onSubmit,'content')),parent)
+        render(commentsTemplate(loadComments(commentsPromise),ctx.user,active,onToggle,createSubmitHandler(onSubmit,'content')),parent)
     }
 
     function onToggle() {

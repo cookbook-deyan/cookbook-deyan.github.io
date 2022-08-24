@@ -1,4 +1,4 @@
-import { getRecipeById } from '../api/recipe.js';
+import { deleteRecipe, getRecipeById } from '../api/recipe.js';
 import {html} from '../lib.js'
 import { until } from '../lib/directives/until.js';
 import { commentsView } from './comments.js';
@@ -13,7 +13,7 @@ const detailsTemplate = (recipePromise) => html`
    </div>
 </section>`;
 
-const recipeCard = (recipe,isOwner) => html`
+const recipeCard = (recipe,isOwner,onDelete) => html`
 <article>
     <h2>${recipe.name}</h2>
     <div class="band">
@@ -33,7 +33,7 @@ const recipeCard = (recipe,isOwner) => html`
 isOwner ? html`
         <div class="controls">
             <a class="actionLink" href="$1">&#x270e; Edit</a>
-            <a class="actionLink" href="javascript:void(0)"> &#x2716; Delete</a>
+            <a @click=${onDelete} class="actionLink" href="javascript:void(0)"> &#x2716; Delete</a>
         </div>`:null
     }
    
@@ -51,10 +51,16 @@ async function loadRecipe(ctx) {
     const isOwner = ctx.user && ctx.user.id ===recipe.owner.objectId;
 
 
-    return recipeCard(recipe,isOwner);
+    return recipeCard(recipe,isOwner,onDelete);
 
     async function onDelete(recipe,isOwner) {
-        
+        const choice = confirm("Delete this recipe");
+
+        if (choice) {
+            await deleteRecipe(ctx.params.id);
+            ctx.notify('Recipe deleted');
+            ctx.page.redirect('/catalog');
+        }
     }
 }
 

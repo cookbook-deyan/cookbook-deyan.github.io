@@ -45,4 +45,6 @@
 
 .comment-date{
 float:right;
+font-size: small;
+font-family: 'Courier New', Courier, monospace;
 }
