@@ -69,7 +69,7 @@ export function loginPage(ctx) {
             }
             await login(username, password);
             console.log(ctx);
-            // event.target.reset();
+            event.target.reset();
             ctx.updateSession();
             ctx.updateUserNav();
 
