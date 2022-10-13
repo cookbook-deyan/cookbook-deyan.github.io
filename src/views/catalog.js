@@ -1,13 +1,22 @@
-import {getRecipes} from '../api/recipe.js';
-import {html, until} from '../lib.js';
-import { createSubmitHandler, parseQuery } from '../util.js';
-import { errorMsg, spinner } from './common.js';
+import {
+    getRecipes
+} from '../api/recipe.js';
+import {
+    html,
+    until
+} from '../lib.js';
+import {
+    createSubmitHandler,
+    parseQuery
+} from '../util.js';
+import {
+    errorMsg,
+    spinner
+} from './common.js';
 
-
-
- const  catalogTemplate = (recipePromise,onSearch,page=1,  search='') =>{
-    
-   return html`
+const catalogTemplate = (recipePromise, onSearch, page = 1, search = '') => {
+    console.log(search);
+    return html `
 <section id="catalog">
     <div class="section-title">
         <form @submit=${onSearch} id="searchForm">
@@ -30,12 +39,10 @@ import { errorMsg, spinner } from './common.js';
         <a class="pager" href="/catalog/3">Next &gt;</a>
 
     </footer>
-</section>`};
+</section>`
+};
 
-
-
-
-const recipePreview = (recipe)=>html`
+const recipePreview = (recipe) => html `
 <a class="card" href="/details/${recipe.objectId}">
     <article class="preview">
         <div class="title">
@@ -48,32 +55,41 @@ const recipePreview = (recipe)=>html`
 
 
 export function catalogPage(ctx) {
-    const {page,search} = parseQuery(ctx.querystring);
-    // console.log(typeof search,search.length,`"${search}"`);
-    console.log( ctx.querystring);
+    const {
+        page,
+        search
+    } = parseQuery(ctx.querystring);
+   
+    ctx.render(catalogTemplate(loadRecipes(page, search), createSubmitHandler(onSearch, 'search'), page, search))
 
-    ctx.render(catalogTemplate(loadRecipes(page,search),createSubmitHandler(onSearch,'search'),page,search))
 
-    function onSearch({search}) {
+    //това тука е деструктуриране на data търсиме само search
+    function onSearch({
+        search
+    }) {
+
+       console.log(search);
+       
         if (search) {
             ctx.page.redirect(`/catalog?search=${encodeURIComponent(search)}`)
-            
-        } else{
+
+        } else {
             ctx.page.redirect('/catalog')
         }
     }
 }
 
-async function loadRecipes(page=1,search='') {
+async function loadRecipes(page = 1, search = '') {
 
-
-    let {results:recipes} =  await getRecipes(page,search);
+    let {
+        results: recipes
+    } = await getRecipes(page, search);
   
-    if (recipes.length==0) {
-        return html`<p>No recipes found</p>`
-    }else{
-       
+    if (recipes.length == 0) {
+        return html `<p>No recipes found</p>`
+    } else {
+
         return recipes.map(recipePreview)
     }
-     
+
 }

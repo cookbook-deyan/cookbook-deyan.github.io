@@ -1,3 +1,6 @@
+
+// notify.js     ----------------MY COOKBOOK----------------
+
 const container = document.createElement('div');
 container.id='notification';
 const list = document.createElement('ul');

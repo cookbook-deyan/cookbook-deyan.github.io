@@ -11,11 +11,11 @@ export default function initialize() {
    return function(ctx,next) {
         ctx.updateSession= updateSession;
         ctx.user = user;
-       
         next();
     }
 
     function updateSession() {
         user = getUserData();
+        console.log(`user value is: ${user} | if [object Object]-it is in LocalStorage(LS) | if null-deleted from LS`);
     }
 }

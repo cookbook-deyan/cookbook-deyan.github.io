@@ -638,6 +638,7 @@ pathToRegexp_1.tokensToRegExp = tokensToRegExp_1;
    * @api public
    */
   Page.prototype.redirect = function(from, to) {
+    console.log('redirected to:'+to, 'redirected from: '+from);
     var inst = this;
 
     // Define route from a path to another

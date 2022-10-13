@@ -31,9 +31,7 @@ const createTemplate = (onSubmit, errors,data) => html`
         </form>
     </article>
 </section>`;
-
-const spacer = () => html `<div class="recent-space"></div>`;
-
+ 
 
 
 export function createPage(ctx) {
@@ -48,12 +46,13 @@ export function createPage(ctx) {
         const missing = Object.entries(data).filter(([k, v]) => v == '')
         try {
             if (missing.length > 0) {
-
+                
                 throw missing.reduce((a, [k]) => Object.assign(a, {
                     [k]: true
                 }), {
                     message: 'Pls fill all fields!'
                 })
+              
             }
 
             const recipe = {
@@ -68,6 +67,7 @@ export function createPage(ctx) {
             ctx.page.redirect('/details/'+result.objectId);
          
         } catch (error) {
+         ctx.notify(error.message)
          
             update(error,data)
         }

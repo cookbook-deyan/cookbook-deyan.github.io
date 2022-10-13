@@ -1,3 +1,4 @@
+// comments.js     ----------------MY COOKBOOK----------------
 
 import { createComment, getCommentsByRecipeId } from '../api/comment.js';
 import {html,until,render} from '../lib.js'
@@ -40,7 +41,7 @@ const commentCard=(comment)=>html`
 export function commentsView(ctx, recipeId) {
     const parent = document.getElementById('comments-container');
     
-    const commentsPromise=getCommentsByRecipeId(recipeId)
+    const commentsPromise = getCommentsByRecipeId(recipeId)
         console.log(commentsPromise);
     update();
 
@@ -59,7 +60,9 @@ export function commentsView(ctx, recipeId) {
 
         const result=    await createComment(recipeId,{content});
         result.owner = {username:ctx.user.username}
+        console.log(result);
         result.content=content;
+        
         (await commentsPromise).results.unshift(result);
         update();
     }
@@ -70,6 +73,6 @@ export function commentsView(ctx, recipeId) {
 
 async function loadComments(commentsPromise) {
     const {results:comments} = await commentsPromise;
-    console.log(await commentsPromise);
+   
     return comments.map(commentCard)
 }

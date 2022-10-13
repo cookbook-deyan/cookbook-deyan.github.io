@@ -43,10 +43,9 @@ export async function editPage(ctx) {
     const recipe = await getRecipeById(ctx.params.id);
     recipe.ingredients=recipe.ingredients.join('\n');
     recipe.steps=recipe.steps.join('\n');
-    console.log(recipe.steps);
-
-
-    update( );
+    
+  
+    update();
 
     function update(errors = {}, data =recipe) {
        
@@ -74,7 +73,7 @@ export async function editPage(ctx) {
          
             const result = await updateRecipe(ctx.params.id,recipe);
             
-            event.target.reset();
+         
             ctx.page.redirect('/details/'+ctx.params.id);
          
         } catch (error) {

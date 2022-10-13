@@ -1,3 +1,6 @@
+// details.js     ----------------MY COOKBOOK----------------
+
+
 import { deleteRecipe, getRecipeById } from '../api/recipe.js';
 import {html} from '../lib.js'
 import { until } from '../lib/directives/until.js';
@@ -63,4 +66,5 @@ async function loadRecipe(ctx) {
         }
     }
 }
+
 

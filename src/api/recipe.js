@@ -5,7 +5,7 @@ import * as api from './api.js';
 import {addOwner, endpoints} from './data.js'
 
 export async function getRecentRecipes() {
-    console.log(endpoints.recent);
+    
     return api.get(endpoints.recent)
 }
 
@@ -14,13 +14,15 @@ export async function getRecipes(page,query) {
     if (query) {
         //ако има куери ще го сменим с един обект който създаваме тука
         query={
-            name:{
+            img:{
                 $text:{
                     $search:{$term:query},
                     $caseSensitive:false
                 }
             }
         }
+     
+        console.log(query);
         return api.get(endpoints.recipeSearch(page,query))
     } else{
 
@@ -35,7 +37,7 @@ export async function getRecipeById(id) {
 }
 
 export async function createRecipe(recipe) {
-    addOwner(recipe)
+   addOwner(recipe) // това е равно на recipe=addOwner(recipe)
 
     return api.post(endpoints.createRecipe,recipe)
 }

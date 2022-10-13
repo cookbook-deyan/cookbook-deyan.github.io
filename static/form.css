@@ -16,11 +16,13 @@ input[type="text"], input[type="password"], .ml textarea {
     right: 0px;
     width: 500px;
     padding: 8px;
+    
 }
 
 .ml textarea {
     height: 300px;
     resize: none;
+    
 }
 
 .ml {
@@ -35,6 +37,7 @@ input[type="submit"] {
     padding: 8px 16px;
     text-decoration: none;
     color: black;
+    margin-top: 30px;
 }
 
 input[type="submit"]:hover {
@@ -44,8 +47,8 @@ input[type="submit"]:hover {
 }
 
 input.err, textarea.err {
-    background-color: #f57d7d;
-    border: 1px red;
+    background-color: hsl(113, 92%, 30%);
+    border: 2px rgb(245, 241, 241);
 }
 
 p.err {

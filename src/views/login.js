@@ -6,6 +6,7 @@ import {
 import {
     html
 } from '../lib.js';
+import { notify } from '../lib/notify.js';
 import {
     createSubmitHandler
 } from '../util.js';
@@ -68,15 +69,16 @@ export function loginPage(ctx) {
                 }
             }
             await login(username, password);
-            console.log(ctx);
-            event.target.reset();
+         
+            // event.target.reset();
             ctx.updateSession();
             ctx.updateUserNav();
 
             ctx.page.redirect('/catalog')
         } catch (error) {
-          console.log(username,password);
+       
             update(error, {username,password})
+            notify(error.message)
         }
 
     }

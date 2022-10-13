@@ -1,10 +1,12 @@
 // api.js     ----------------MY COOKBOOK----------------
 
+import { notify } from "../lib/notify.js";
 import {
     clearUserData,
     getUserData,
     setUserData
 } from "../util.js";
+import { endpoints} from './data.js'
 
 const hostname = 'https://parseapi.back4app.com'
 
@@ -24,7 +26,7 @@ async function request(url, options) {
 
         return await response.json();
     } catch (err) {
-        
+        notify(err.message)
         throw err;
     }
 
@@ -81,7 +83,7 @@ export async function login(username, password) {
         token: result.sessionToken
     }
     setUserData(userData)
-    return result
+    return result;
 }
 
 export async function register(username, email, password) {
@@ -100,9 +102,17 @@ export async function register(username, email, password) {
     return result
 }
 
-export async function logout() {
+export async function logout(ctx) {
+    console.log(ctx);
     await post('/logout');
-    clearUserData()
+    //    async function deleteSession(id) {
+    //     await del(endpoints.delateSes+id);
+    
+    // }
+
+    clearUserData();
+    ctx.updateSession();
+    console.log('Logout function is executed. clearUserData and ctx.updateSession() run');
 }
 
 window.logout=logout;

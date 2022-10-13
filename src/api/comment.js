@@ -10,7 +10,9 @@ export function getCommentsByRecipeId(recipeId) {
 
 export function createComment(recipeId, comment) {
     comment.recipe = createPointer('recipe',recipeId);
-    console.log(addOwner(comment));
+ 
+    addOwner(comment);
+
     return api.post(endpoints.comments,comment);
 }
 

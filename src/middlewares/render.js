@@ -26,11 +26,16 @@ export default function initialize(ctx, next) {
     
 
     function updateUserNav() {
+      
+
         const userData = getUserData();
         if (userData) {
+          console.log('navigation updated: guest display replaced with Logout | user is logedin');
+
             document.getElementById('user').style.display = 'inline-block';
             document.getElementById('guest').style.display = 'none';
         } else {
+          console.log('navigation updated: user display replaced with LoginBtn | user is logedout');
             document.getElementById('user').style.display = 'none';
             document.getElementById('guest').style.display = 'inline-block';
         }
