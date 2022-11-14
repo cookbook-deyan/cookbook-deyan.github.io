@@ -43,10 +43,6 @@ const loginTemplate = (onSubmit, errors, data) => {
 
 
 
-const spacer = () => html `<div class="recent-space"></div>`;
-
-
-
 export function loginPage(ctx) {
     update();
 

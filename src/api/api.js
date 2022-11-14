@@ -105,10 +105,7 @@ export async function register(username, email, password) {
 export async function logout(ctx) {
     console.log(ctx);
     await post('/logout');
-    //    async function deleteSession(id) {
-    //     await del(endpoints.delateSes+id);
-    
-    // }
+  
 
     clearUserData();
     ctx.updateSession();
